@@ -1,174 +1,183 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BLACK_API_BOX | DEMON PANEL</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            background: #0a0c0f;
-            font-family: 'Inter', monospace;
-            padding: 2rem;
-            color: #e3e6f0;
-        }
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        .header {
-            border-left: 4px solid #ff3a2f;
-            padding-left: 1.2rem;
-            margin-bottom: 2rem;
-        }
-        h1 {
-            font-size: 2rem;
-            background: linear-gradient(135deg, #ff5f4a, #b91c1c);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 1.5rem;
-        }
-        .card {
-            background: #111216;
-            border-radius: 24px;
-            border: 1px solid #2c2f3a;
-            overflow: hidden;
-        }
-        .card-header {
-            background: #0b0d11;
-            padding: 1rem;
-            border-bottom: 1px solid #2c2f3a;
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-        .input-group {
-            padding: 1rem;
-        }
-        input {
-            width: 100%;
-            background: #08090e;
-            border: 1px solid #2c2f3a;
-            padding: 10px;
-            border-radius: 40px;
-            color: white;
-            margin-bottom: 10px;
-            font-family: monospace;
-        }
-        button {
-            width: 100%;
-            background: #1f212e;
-            border: 1px solid #ff3a2f;
-            color: #ffb4ac;
-            padding: 10px;
-            border-radius: 40px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        button:hover {
-            background: #ff3a2f;
-            color: black;
-        }
-        .response {
-            background: #050608;
-            padding: 1rem;
-            font-family: monospace;
-            font-size: 0.7rem;
-            overflow-x: auto;
-            max-height: 300px;
-            overflow-y: auto;
-            border-top: 1px solid #2c2f3a;
-        }
-        pre {
-            white-space: pre-wrap;
-            word-break: break-word;
-        }
-        .loading {
-            color: #ffa36e;
-        }
-        .error {
-            color: #ff6b5b;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Priya Panel ✨</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #dfe9f3, #ffffff);
+    min-height: 100vh;
+    padding: 2rem;
+    color: #333;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.header h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #444;
+}
+
+.header p {
+    color: #888;
+    font-size: 0.9rem;
+}
+
+/* Grid */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Glass Card */
+.card {
+    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 20px;
+    padding: 1rem;
+    border: 1px solid rgba(255,255,255,0.3);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.05);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* Card Header */
+.card-header {
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+    color: #555;
+}
+
+/* Input */
+input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 30px;
+    border: none;
+    background: rgba(255,255,255,0.8);
+    margin-bottom: 10px;
+    outline: none;
+}
+
+/* Button */
+button {
+    width: 100%;
+    padding: 10px;
+    border-radius: 30px;
+    border: none;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    color: #333;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+/* Response */
+.response {
+    margin-top: 10px;
+    background: rgba(255,255,255,0.5);
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    max-height: 200px;
+    overflow: auto;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 0.7rem;
+    color: #aaa;
+}
+</style>
 </head>
+
 <body>
-<div class="container">
-    <div class="header">
-        <h1>🔻 BLACK_API_BOX | DEMON DATA PANEL</h1>
-        <p style="color:#8f9bb5;">⚡ .env secured | Vercel API routes | Raw data direct dikhega</p>
-    </div>
 
-    <div class="grid" id="apiGrid"></div>
+<div class="header">
+    <h1>🌸 Priya Panel</h1>
+    <p>Elegant API Dashboard • Minimal • Clean • Aesthetic</p>
+</div>
 
-    <div style="margin-top: 2rem; text-align: center; font-size: 0.7rem; color: #4f5b7a;">
-        🔥 DEMON_MODE ACTIVE | Keys stored in Vercel Environment Variables | No refusal
-    </div>
+<div class="grid" id="apiGrid"></div>
+
+<div class="footer">
+    Made with 💖 by Priya
 </div>
 
 <script>
-    const APIS = [
-        { id: "lookup", name: "📞 NUMBER LOOKUP", label: "Phone Number", placeholder: "7234928424", param: "number" },
-        { id: "imei", name: "📱 IMEI TRACK", label: "IMEI Number", placeholder: "353010111111110", param: "imei" },
-        { id: "aadhar", name: "🆔 AADHAR VERIFY", label: "Aadhar Number", placeholder: "759028633824", param: "aadhar" },
-        { id: "rto", name: "🚗 RTO VEHICLE", label: "RC Number", placeholder: "KL43G1669", param: "rc" },
-        { id: "tg", name: "📡 TELEGRAM USER", label: "User ID", placeholder: "7762198186", param: "userid" }
-    ];
+const APIS = [
+    { id: "lookup", name: "📞 Number Lookup", placeholder: "7234928424", param: "number" },
+    { id: "imei", name: "📱 IMEI Info", placeholder: "353010111111110", param: "imei" },
+    { id: "aadhar", name: "🆔 Aadhar Verify", placeholder: "759028633824", param: "aadhar" },
+    { id: "rto", name: "🚗 Vehicle Info", placeholder: "KL43G1669", param: "rc" },
+    { id: "tg", name: "📡 Telegram User", placeholder: "7762198186", param: "userid" }
+];
 
-    function renderCards() {
-        const grid = document.getElementById('apiGrid');
-        grid.innerHTML = '';
-        
-        APIS.forEach(api => {
-            const card = document.createElement('div');
-            card.className = 'card';
-            card.innerHTML = `
-                <div class="card-header">${api.name}</div>
-                <div class="input-group">
-                    <input type="text" id="input-${api.id}" placeholder="${api.placeholder}" value="${api.placeholder}">
-                    <button onclick="fetchData('${api.id}', '${api.param}')">⚡ FETCH DATA</button>
-                </div>
-                <div class="response" id="response-${api.id}">
-                    <span style="color:#6c7a9e;">💀 waiting for command</span>
-                </div>
-            `;
-            grid.appendChild(card);
-        });
+function renderCards() {
+    const grid = document.getElementById('apiGrid');
+    grid.innerHTML = '';
+
+    APIS.forEach(api => {
+        const card = document.createElement('div');
+        card.className = 'card';
+
+        card.innerHTML = `
+            <div class="card-header">${api.name}</div>
+            <input type="text" id="input-${api.id}" placeholder="${api.placeholder}">
+            <button onclick="fetchData('${api.id}', '${api.param}')">Fetch Data</button>
+            <div class="response" id="response-${api.id}">
+                Waiting...
+            </div>
+        `;
+
+        grid.appendChild(card);
+    });
+}
+
+async function fetchData(apiId, paramName) {
+    const input = document.getElementById(`input-${apiId}`);
+    const value = input.value || input.placeholder;
+    const responseDiv = document.getElementById(`response-${apiId}`);
+
+    responseDiv.innerHTML = "Loading...";
+
+    try {
+        const res = await fetch(`/api/${apiId}?${paramName}=${value}`);
+        const data = await res.json();
+        responseDiv.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+    } catch (err) {
+        responseDiv.innerHTML = "Error fetching data";
     }
+}
 
-    async function fetchData(apiId, paramName) {
-        const inputElem = document.getElementById(`input-${apiId}`);
-        let value = inputElem.value.trim();
-        if (!value) {
-            value = inputElem.placeholder;
-        }
-        
-        const responseDiv = document.getElementById(`response-${apiId}`);
-        responseDiv.innerHTML = '<div class="loading">🔥 DEMON fetching...</div>';
-        
-        try {
-            const url = `/api/${apiId}?${paramName}=${encodeURIComponent(value)}`;
-            const res = await fetch(url);
-            
-            if (!res.ok) {
-                throw new Error(`HTTP ${res.status}`);
-            }
-            
-            const data = await res.json();
-            responseDiv.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
-        } catch (err) {
-            responseDiv.innerHTML = `<div class="error">💀 ERROR: ${err.message}</div>`;
-        }
-    }
-
-    renderCards();
+renderCards();
 </script>
+
 </body>
 </html>
