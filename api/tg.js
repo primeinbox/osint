@@ -1,7 +1,7 @@
 export default async function handler(req, res) {
     res.setHeader('Access-Control-Allow-Origin', '*');
 
-    const { userid } = req.query;
+    let { userid } = req.query;
 
     if (!userid) {
         return res.status(400).json({
@@ -9,6 +9,12 @@ export default async function handler(req, res) {
             message: "Telegram user ID daalo"
         });
     }
+
+    // 🔥 Remove @ symbol if present in userid
+    const cleanUserid = userid.replace(/^@/, '');
+    
+    // 📝 Log with original and cleaned userid
+    console.log(`📥 Request received - Original: ${userid}, Cleaned: ${cleanUserid} | Provider: @aerivue`);
 
     const BASE_URL = process.env.AERIVUE_BASE;
     const API_KEY = process.env.TG_API_KEY;
@@ -29,10 +35,15 @@ export default async function handler(req, res) {
 
     try {
         const response = await fetch(
-            `${BASE_URL}/tg?userid=${encodeURIComponent(userid)}&apikey=${API_KEY}`
+            `${BASE_URL}/tg?userid=${encodeURIComponent(cleanUserid)}&apikey=${API_KEY}`
         );
 
-        const data = await response.json();
+        let data = await response.json();
+
+        // 🔥 Sirf api_used field change karo, baaki sab original rahne do
+        if (data && typeof data === 'object') {
+            data.api_used = "@allblackapi";
+        }
 
         // 🔥 API expire check
         if (data?.message?.includes("expire")) {
@@ -53,6 +64,8 @@ export default async function handler(req, res) {
         });
 
     } catch (error) {
+        console.error(`❌ Error for user ${cleanUserid} | Provider: @aerivue -`, error.message);
+        
         return res.status(500).json({
             status: false,
             error: "Server Error",
