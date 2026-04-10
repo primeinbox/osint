@@ -67,6 +67,12 @@ export default async function handler(req, res) {
             });
         }
 
+        // 🔥 Fields override
+if (data && typeof data === 'object') {
+    data.by = "@aerivue";
+    data.channel = "https://t.me/blackapibox";
+}
+
         // ✅ Direct response (NO WRAPPING)
         return res.status(200).json(data);
 
