@@ -57,12 +57,16 @@ export default async function handler(req, res) {
 
         const data = await response.json();
 
-        return res.status(200).json({
-            status: true,
-            msg: 'Profile lookup successful',
-            tg_id: data.tg_id || null,
-            developer: '@aerivue'
-        });
+ return res.status(200).json({
+    status: true,
+    msg: 'Details fetched successfully',
+    tg_id: data.tg_id || null,
+    country: data.country || null,
+    country_code: data.country_code || null,
+    number: data.number || null,
+    response_time: data.response_time || null,
+    developer: '@aerivue'
+});
 
     } catch (error) {
         console.error('API Error:', error.message);
