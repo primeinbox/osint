@@ -36,7 +36,7 @@ export default async function handler(req, res) {
         `Request received | User: ${cleanUserid} | Provider: @aerivue`
     );
 
-    const BASE_URL = process.env.AERIVUE_BASE;
+    const BASE_URL = process.env.TG_BASE;
 
     if (!BASE_URL) {
         return res.status(500).json({
