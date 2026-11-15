@@ -1,75 +1,79 @@
+
 export default async function handler(req, res) {
     res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
 
-    let { userid } = req.query;
+    if (req.method === 'OPTIONS') {
+        return res.status(200).end();
+    }
 
-    if (!userid) {
-        return res.status(400).json({
+    if (req.method !== 'GET') {
+        return res.status(405).json({
             status: false,
-            message: "Telegram user ID daalo"
+            message: 'Method not allowed'
         });
     }
 
-    // 🔥 Remove @ symbol if present in userid
-    const cleanUserid = userid.replace(/^@/, '');
-    
-    // 📝 Log with original and cleaned userid
-    console.log(`📥 Request received - Original: ${userid}, Cleaned: ${cleanUserid} | Provider: @aerivue`);
+    let { userid } = req.query;
+
+    if (!userid || typeof userid !== 'string') {
+        return res.status(400).json({
+            status: false,
+            message: 'Telegram username ya ID daalo'
+        });
+    }
+
+    const cleanUserid = userid.trim().replace(/^@/, '');
+
+    if (!cleanUserid) {
+        return res.status(400).json({
+            status: false,
+            message: 'Valid Telegram username ya ID daalo'
+        });
+    }
+
+    console.log(
+        `Request received | User: ${cleanUserid} | Provider: @aerivue`
+    );
 
     const BASE_URL = process.env.AERIVUE_BASE;
-    const API_KEY = process.env.TG_API_KEY;
 
-    // 🔥 Toggle (future ke liye useful)
-    const MAINTENANCE_MODE = false;
-
-    if (MAINTENANCE_MODE) {
-        return res.status(200).json({
+    if (!BASE_URL) {
+        return res.status(500).json({
             status: false,
-            error: "API is expired",
-            message: "⚠️ This API is currently not active.",
-            provider: "@aerivue",
-            api: "Black-Api-Box",
-            fix: "Contact @aerivue to renew access"
+            message: 'API configuration missing'
         });
     }
 
     try {
-        const response = await fetch(
-            `${BASE_URL}/tg?userid=${encodeURIComponent(cleanUserid)}&apikey=${API_KEY}`
-        );
+        const apiUrl = new URL('/advanced/tg2num', BASE_URL);
+        apiUrl.searchParams.set('q', cleanUserid);
 
-        let data = await response.json();
+        const response = await fetch(apiUrl);
 
-        // 🔥 Sirf api_used field change karo, baaki sab original rahne do
-        if (data && typeof data === 'object') {
-            data.api_used = "@allblackapi";
-        }
-
-        // 🔥 API expire check
-        if (data?.message?.includes("expire")) {
-            return res.status(200).json({
+        if (!response.ok) {
+            return res.status(502).json({
                 status: false,
-                error: "API is expired",
-                message: "⚠️ This API is currently not active.",
-                provider: "@aerivue",
-                api: "Black-Api-Box",
-                fix: "Contact @aerivue to renew access"
+                message: 'Upstream API request failed',
+                developer: '@aerivue'
             });
         }
 
-        // ✅ Normal response
+        const data = await response.json();
+
         return res.status(200).json({
-            status: true,
-            data: data
+            msg: data.msg || 'Details fetched successfully',
+            tg_id: data.tg_id || null,
+            developer: '@aerivue'
         });
 
     } catch (error) {
-        console.error(`❌ Error for user ${cleanUserid} | Provider: @aerivue -`, error.message);
-        
+        console.error('API Error:', error.message);
+
         return res.status(500).json({
             status: false,
-            error: "Server Error",
-            message: error.message
+            message: 'Server Error',
+            developer: '@aerivue'
         });
     }
 }
