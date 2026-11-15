@@ -7,13 +7,8 @@ export default async function handler(req, res) {
         return res.status(200).end();
     }
 
-    const { imei_num } = req.query;
-
-    if (!imei_num) {
-        return res.status(400).json({
-            error: 'IMEI number daal'
-        });
-    }
+    // Default IMEI if not provided
+    const imei_num = req.query.imei_num || '864316075704036';
 
     const BASE_URL = process.env.IMEI_BASE;
 
