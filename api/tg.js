@@ -14,7 +14,7 @@ export default async function handler(req, res) {
         });
     }
 
-    let { userid } = req.query;
+    const { userid } = req.query;
 
     if (!userid || typeof userid !== 'string') {
         return res.status(400).json({
@@ -28,13 +28,9 @@ export default async function handler(req, res) {
     if (!cleanUserid) {
         return res.status(400).json({
             status: false,
-            message: 'Valid Telegram username ya ID daalo'
+            message: 'Invalid Telegram username ya ID'
         });
     }
-
-    console.log(
-        `Request received | User: ${cleanUserid} | Provider: @aerivue`
-    );
 
     const BASE_URL = process.env.TG_BASE;
 
@@ -62,7 +58,8 @@ export default async function handler(req, res) {
         const data = await response.json();
 
         return res.status(200).json({
-            msg: data.msg || 'Details fetched successfully',
+            status: true,
+            msg: 'Profile lookup successful',
             tg_id: data.tg_id || null,
             developer: '@aerivue'
         });
